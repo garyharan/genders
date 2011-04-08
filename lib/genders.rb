@@ -13,7 +13,7 @@ class Genders
     "when"=>-17, "where"=>-18, "who"=>19, "with"=>-52, "your"=>-17
   }
 
-  def self.determine(str)
+  def self.guess(str)
     total = self.score(str)
     if total > 0
       return "male"
