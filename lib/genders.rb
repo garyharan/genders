@@ -1,14 +1,18 @@
+require 'ostruct'
+
 module Genders
   class Guesser
     def self.guess(str)
-      total = self.score(str)
-      if total > 0
-        return "male"
-      elsif total < 0
-        return "female"
+      score = OpenStruct.new
+      score.total = self.score(str)
+      if score.total > 0
+        score.gender = "male"
+      elsif score.total < 0
+        score.gender = "female"
       else
-        return "indeterminate"
+        score.gender = "indeterminate"
       end
+      score
     end
 
     def self.score(str)
