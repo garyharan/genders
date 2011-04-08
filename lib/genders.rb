@@ -2,7 +2,7 @@ require 'ostruct'
 
 module Genders
   class Guesser
-    def self.guess(str)
+    def self.analyze(str)
       score = OpenStruct.new
       score.total = self.score(str)
       if score.total > 0
