@@ -48,5 +48,12 @@ describe Genders do
     it "should say when it cannot find gender" do
       assert_equal "indeterminate", Genders::Informal.analyze("if since").gender
     end
+
+    it "should give a confidence level" do
+      analysis = Genders::Informal.analyze("If you are happy with yourself.")
+      assert_equal 25,  analysis.male_score
+      assert_equal 0,   analysis.female_score
+      assert_equal 100, analysis.confidence
+    end
   end
 end

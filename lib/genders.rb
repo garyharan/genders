@@ -15,7 +15,7 @@ module Genders
       else
         score.gender = "indeterminate"
       end
-      score.confidence = [score.female_score, score.male_score].max / (score.female_score.abs + score.male_score.abs)
+      score.confidence = [score.female_score, score.male_score].max / (score.female_score.abs + score.male_score.abs) * 100
       score
     end
 
