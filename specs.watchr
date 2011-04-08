@@ -10,5 +10,6 @@ end
 
 watch('Rakefile')                 {|m| run "rake" }
 watch('^lib/(.*)')                {|m| run "rake" }
+watch('^lib/genders/(.*)')        {|m| run "rake" }
 watch('^spec/(.*)')               {|m| run "rake" }
 
