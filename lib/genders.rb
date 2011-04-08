@@ -5,17 +5,20 @@ module Genders
     def self.analyze(text)
       score = OpenStruct.new
       text  = text.downcase
-      score.female_score = self.female_score self.female_determinate_words text
-      score.male_score   = self.male_score self.male_determinate_words text
-      score.total        = score.female_score + score.male_score
-      if score.total > 0
+      score.female_score = self.female_score(self.female_determinate_words(text)).abs
+      score.male_score   = self.male_score(self.male_determinate_words(text)).abs
+      total = (score.female_score + score.male_score).to_f
+
+      if score.female_score < score.male_score
+        score.percentage = (total - score.female_score) / total * 100.0
         score.gender = "male"
-      elsif score.total < 0
+      elsif score.female_score > score.male_score
+        score.percentage = (total - score.male_score) / total * 100.0
         score.gender = "female"
       else
+        score.percentage = 50.0
         score.gender = "indeterminate"
       end
-      score.confidence = [score.female_score, score.male_score].max / (score.female_score.abs + score.male_score.abs) * 100
       score
     end
 

@@ -8,8 +8,8 @@ describe Genders do
     end
 
     it "provides a gender score" do
-      assert_equal -47, Genders::Formal.analyze("if more").female_score
-      assert_equal 34,  Genders::Formal.analyze("if more").male_score
+      assert_equal 47, Genders::Formal.analyze("if more").female_score
+      assert_equal 34, Genders::Formal.analyze("if more").male_score
     end
 
     it "detects a match for a stereotypical man" do
@@ -20,14 +20,20 @@ describe Genders do
       assert_equal "indeterminate", Genders::Formal.analyze("should the").gender
     end
 
-    it "should provide confidence as well as gender" do
-      assert_equal 0, Genders::Formal.analyze("should the").confidence
-      analysis = Genders::Formal.analyze("if you plug the hole in the counter you should be happy")
-      assert_equal 0, analysis.confidence
+    it "should provide percentage as well as gender" do
+      analysis = Genders::Formal.analyze("above around")
+      assert_equal "male", analysis.gender
+      assert_equal 100.0, analysis.percentage
+      analysis = Genders::Formal.analyze("a she")
+      assert_equal "indeterminate", analysis.gender
+      assert_equal 50.0, analysis.percentage
+      analysis = Genders::Formal.analyze("her and your")
+      assert_equal "female", analysis.gender
+      assert_equal 100.0, analysis.percentage
     end
 
     it "should accept uppercase text" do
-      assert_equal -47, Genders::Formal.analyze("If").female_score
+      assert_equal 47, Genders::Formal.analyze("If").female_score
     end
   end
 
@@ -37,8 +43,8 @@ describe Genders do
     end
     
     it "provides a gender score" do
-      assert_equal -55, Genders::Informal.analyze("because something").female_score
-      assert_equal 26,  Genders::Informal.analyze("because something").male_score
+      assert_equal 55, Genders::Informal.analyze("because something").female_score
+      assert_equal 26, Genders::Informal.analyze("because something").male_score
     end
 
     it "detects a match for a stereotypical man" do
@@ -49,11 +55,16 @@ describe Genders do
       assert_equal "indeterminate", Genders::Informal.analyze("if since").gender
     end
 
-    it "should give a confidence level" do
-      analysis = Genders::Informal.analyze("If you are happy with yourself.")
-      assert_equal 25,  analysis.male_score
-      assert_equal 0,   analysis.female_score
-      assert_equal 100, analysis.confidence
+    it "should provide percentage as well as gender" do
+      analysis = Genders::Formal.analyze("above around")
+      assert_equal "male", analysis.gender
+      assert_equal 100.0, analysis.percentage
+      analysis = Genders::Formal.analyze("a she")
+      assert_equal "indeterminate", analysis.gender
+      assert_equal 50.0, analysis.percentage
+      analysis = Genders::Formal.analyze("her and your")
+      assert_equal "female", analysis.gender
+      assert_equal 100.0, analysis.percentage
     end
   end
 end
