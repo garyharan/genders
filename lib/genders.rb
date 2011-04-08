@@ -15,8 +15,12 @@ module Genders
       score
     end
 
+    def self.determinate_words(str)
+      str.split.select{ |word| @words.keys.include?(word.downcase) }
+    end
+
     def self.score(str)
-      str.split.select{ |word| @words.keys.include?(word.downcase) }.inject(0) do |total, word|
+      self.determinate_words(str).inject(0) do |total, word|
         total + @words[word]
       end
     end
