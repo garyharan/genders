@@ -4,6 +4,7 @@ module Genders
   class Guesser
     def self.analyze(text)
       score = OpenStruct.new
+      text  = text.downcase
       score.female_score = self.female_score self.female_determinate_words text
       score.male_score   = self.male_score self.male_determinate_words text
       score.total        = score.female_score + score.male_score
@@ -14,6 +15,7 @@ module Genders
       else
         score.gender = "indeterminate"
       end
+      score.confidence = [score.female_score, score.male_score].max / (score.female_score.abs + score.male_score.abs)
       score
     end
 

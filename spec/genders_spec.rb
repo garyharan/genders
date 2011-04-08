@@ -19,6 +19,16 @@ describe Genders do
     it "should say when it cannot find gender" do
       assert_equal "indeterminate", Genders::Formal.analyze("should the").gender
     end
+
+    it "should provide confidence as well as gender" do
+      assert_equal 0, Genders::Formal.analyze("should the").confidence
+      analysis = Genders::Formal.analyze("if you plug the hole in the counter you should be happy")
+      assert_equal 0, analysis.confidence
+    end
+
+    it "should accept uppercase text" do
+      assert_equal -47, Genders::Formal.analyze("If").female_score
+    end
   end
 
   describe "when in an informal setting" do
